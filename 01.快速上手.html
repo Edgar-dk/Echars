@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 1.将外部的包引入进来 -->
+    <script src="./lib/echarts.min.js"></script>
+</head>
+<body>
+    <div style="width: 600px;height: 400px;"></div>
+    <!-- 2.里面需要写js代码，这个script可以在head，也可以
+           在body中,为什么script需要放在div下面，在下面使用
+           到了div标签数据，放上面的话，还没有运行到div的
+           时候，就用到了div，这样做，显然是错误的-->
+    <script>
+        /* 3,创建一个echarts对象，根据init方法，
+                需要传递参数，决定了，图标的呈现位置
+                因此需要将div的dom填写到参数中 */
+        var myCharts = echarts.init(document.querySelector('div'))
+
+        /* 4,准备配置项
+             其他的代码中，只有配置项不一样，其他的都一样 */
+        var option = {
+            title:{
+                /* 01_1，text,文本的标题
+                         link,给文本加上链接，可以点击 */
+                text:'成绩表单',
+                link:'http://www.baidu.com',
+                /* 01_2，textStyle给标题设置好格式，字体
+                         大小，颜色等，都可以设置 */
+                textStyle:{
+                    color:'red'
+                }
+            },
+            xAxis:{
+                type:'category', // 类目轴
+                data:['小明','小红','小王']
+            },
+            yAxis:{
+                type:'value'   //数值轴，y轴的值，根据，x轴，对应到series上的数据
+            },
+            series:[
+                {
+                    name:'语文',
+                    type:'bar',
+                    data:[70,92,87]
+                }
+            ]
+        }
+        /* 5.将配置项设置给echarts实例对象 */
+        myCharts.setOption(option)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>堆叠图</title>
+    <!-- 1.将外部的包引入进来 -->
+    <script src="./lib/echarts.min.js"></script>
+</head>
+
+<body>
+    <div style="width: 600px;height: 400px;"></div>
+    <script>
+        var myCharts = echarts.init(document.querySelector('div'))
+        var xDataArr = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+        var yDataArr1 = [3000, 2800, 900, 1000, 800, 700, 1400, 1300, 900, 1000, 800, 600]
+        var yDataArr2 = [2000, 3800, 1900, 500, 900, 1700, 2400, 300, 1900, 1500, 1800, 200]
+        var option = {
+            xAxis: {
+                type: 'category',
+                data: xDataArr,
+                /* 第一个x点，紧挨着，y轴 */
+                boundaryGap:false
+            },
+            yAxis: {
+                type: 'value',
+                /* y轴的数据，从第一个x对应的y的数据开始，不从0开始了 */
+                scale:true
+            },
+            series: [
+                {
+                    name: '康师傅',
+                    type: 'line',
+                    data: yDataArr1,
+                    stack:'all',
+                    areaStyle:{},
+                },
+                {
+                    name: '白象',
+                    type: 'line',
+                    data: yDataArr2,
+                    stack:'all',
+                    areaStyle:{},
+
+
+                }
+            ]
+        }
+        myCharts.setOption(option)
+    </script>
+</body>
+
+</html>

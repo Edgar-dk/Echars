@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基本配置</title>
+    <!-- 1.将外部的包引入进来 -->
+    <script src="./lib/echarts.min.js"></script>
+</head>
+
+<body>
+    <div style="width: 600px;height: 400px;"></div>
+    <script>
+        var xDataArr = ['张三', '李四', '王五', '闰土', '小明', '茅台', '二妞', '大强']
+        var yDataArr = [88, 92, 63, 77, 94, 80, 72, 86]
+
+        var myCharts = echarts.init(document.querySelector('div'))
+        var option = {
+            title: {
+                text: '柱状图',
+                textStyle: {
+                    color: 'red'
+                },
+                /* 第一个参数，给这个标题添加上边框，默认是灰色，5是边框的宽度
+                   第二个参数，边框的颜色，
+                   第三个参数，边框的圆角，数字越大，边框越圆
+                   第四个参数，标题距离左边的距离
+                   第五个参数，标题距离上边的距离 */
+                borderWidth: 1,
+                borderColor: 'green',
+                borderRadius: 5,
+                left: 100,
+                top: 20,
+            },
+            /* 鼠标移动到框中，就显示数据
+               第一个参数，在框中移动的话，显示数据
+               第二个参数，在框的中线上，以及框内移动显示数据
+               第三个参数，只有在点击的时候，才显示数据，默认是鼠标移动到边框显示，可以自己设置
+               第四个参数，可以直接设置点击出现的文字是什么，后面可以接，字符串模板，也可以是一个函数 */
+            tooltip: {
+                // trigger: 'item'
+                trigger:'axis',
+                triggerOn:'click',
+                formatter: function(arg){
+                    return arg[0].name + '的分数是' + arg[0].data
+                }
+            },
+
+            /* 工具栏按钮
+               第一个参数，导出图片，也就是下载
+               第二个参数，数据视图，可以修改数据，在呈现在图片中，刷新页面就还原了
+               第三个参数，重置，相当于刷新页面
+               第四个参数，区域缩放，选定一个范围，给这个范围扩大
+               第五个参数，可以在个个图表之间来回的切换，图表是自己设置的 */
+            toolbox:{
+                feature:{
+                    saveAsImage:{}, 
+                    dataView:{},
+                    restore:{},
+                    dataZoom:{},
+                    magicType:{
+                        type:['bar','line']
+                    }
+                }
+            },
+            xAxis: {
+                type: 'category', // 类目轴
+                data: xDataArr
+            },
+            yAxis: {
+                type: 'value'   //数值轴，y轴的值，根据，x轴，对应到series上的数据
+            },
+            series: [
+                {
+                    name: '语文',
+                    type: 'bar',
+                    data: yDataArr,
+                    /* 最大值和最小值 */
+                    markPoint: {
+                        data: [
+                            {
+                                type: 'max', name: '最大值'
+                            },
+                            {
+                                type: 'min', name: '最小值'
+                            }
+                        ]
+                    },
+                    /* 平均值 */
+                    markLine: {
+                        data: [
+                            {
+                                type: 'average', name: '平均值'
+                            }
+                        ]
+                    },
+                    /* 柱状图的数字设置
+                       show，是否显示，true，显示
+                       position，数字的位置 */
+                    label: {
+                        show: true,
+                        position: 'top'
+                    },
+                    /* 柱子的宽度 */
+                    // barWidth:'30%'
+                }
+            ]
+        }
+        myCharts.setOption(option)
+    </script>
+</body>
+
+</html>
